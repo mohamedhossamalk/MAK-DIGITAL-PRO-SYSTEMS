@@ -2,14 +2,14 @@
 import React, { useRef, useState } from 'react';
 
 export default function StartNowPage() {
-  const nameRef = useRef(null);
-  const phoneRef = useRef(null);
-  const emailRef = useRef(null);
-  const companyRef = useRef(null);
-  const typeRef = useRef(null);
-  const detailsRef = useRef(null);
-  const budgetRef = useRef(null);
-  const notesRef = useRef(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const companyRef = useRef<HTMLInputElement>(null);
+  const typeRef = useRef<HTMLInputElement>(null);
+  const detailsRef = useRef<HTMLTextAreaElement>(null);
+  const budgetRef = useRef<HTMLInputElement>(null);
+  const notesRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 

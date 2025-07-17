@@ -2,11 +2,11 @@
 import React, { useRef, useState } from 'react';
 
 export default function ContactPage() {
-  const nameRef = useRef(null);
-  const emailRef = useRef(null);
-  const phoneRef = useRef(null);
-  const companyRef = useRef(null);
-  const messageRef = useRef(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const companyRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
