@@ -1,3 +1,4 @@
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 
 const socials = [
@@ -32,20 +33,56 @@ const socials = [
 ];
 
 export default function SocialBar() {
+  const [open, setOpen] = useState(false);
+  const barRef = useRef<HTMLDivElement>(null);
+
+  // إغلاق عند الضغط خارج الشريط على الموبايل فقط
+  useEffect(() => {
+    if (!open) return;
+    const handleClick = (e: MouseEvent) => {
+      if (barRef.current && !barRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [open]);
+
   return (
-    <div className="fixed top-1/3 left-0 z-50 flex flex-col gap-3 p-1 bg-black/10 rounded-r-xl opacity-60 hover:opacity-100 transition-all group -translate-x-9 hover:translate-x-0">
-      {socials.map((s, i) => (
-        <Link
-          key={i}
-          href={s.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={s.label}
-          className="flex items-center justify-center w-12 h-12 bg-white rounded-r-lg shadow hover:bg-black hover:text-white transition-colors"
-        >
-          {s.icon}
-        </Link>
-      ))}
-    </div>
+    <>
+      {/* شريط السوشيال للموبايل */}
+      <div className="fixed top-1/3 left-0 z-50 flex flex-col gap-3 p-1 bg-black/10 rounded-r-xl opacity-60 hover:opacity-100 transition-all group -translate-x-9 hover:translate-x-0
+        md:flex md:translate-x-0 md:opacity-100 md:static md:bg-transparent md:p-0
+        "
+        ref={barRef}
+        style={{
+          // على الموبايل: إظهار/إخفاء بالشريحة
+          transform: open ? 'translateX(0)' : 'translateX(-2.5rem)',
+          transition: 'transform 0.3s',
+        }}
+      >
+        {socials.map((s, i) => (
+          <Link
+            key={i}
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={s.label}
+            className="flex items-center justify-center w-12 h-12 bg-white rounded-r-lg shadow hover:bg-black hover:text-white transition-colors"
+          >
+            {s.icon}
+          </Link>
+        ))}
+      </div>
+      {/* زر إظهار الشريط على الموبايل فقط */}
+      <button
+        className="fixed top-1/2 left-2 z-50 md:hidden flex items-center justify-center w-10 h-10 bg-black text-white rounded-full shadow-lg transition-all"
+        style={{ display: open ? 'none' : 'flex' }}
+        onClick={() => setOpen(true)}
+        aria-label="إظهار شريط السوشيال"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 12h16M4 6h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+      </button>
+    </>
   );
 } 
