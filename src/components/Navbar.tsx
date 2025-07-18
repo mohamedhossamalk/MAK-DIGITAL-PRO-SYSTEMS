@@ -122,51 +122,67 @@ export default function Navbar() {
       {/* Sidebar Drawer */}
       {open && (
         <div className="fixed inset-0 z-[999] bg-black/40 flex">
-          <div className="bg-white w-64 h-full shadow-lg p-6 flex flex-col gap-6 animate-slideInRight">
-            <button className="self-end mb-4" onClick={() => setOpen(false)} aria-label="إغلاق القائمة">
-              <span className="block w-6 h-0.5 bg-black rotate-45 translate-y-1"></span>
-              <span className="block w-6 h-0.5 bg-black -rotate-45 -translate-y-1"></span>
+          <div className="bg-gradient-to-b from-white via-gray-50 to-gray-200 w-64 h-full shadow-2xl p-6 flex flex-col gap-6 rounded-r-3xl animate-slideInRight relative">
+            <button className="absolute top-4 left-4 bg-gray-100 hover:bg-gray-200 rounded-full w-9 h-9 flex items-center justify-center shadow focus:outline-none transition-all" onClick={() => setOpen(false)} aria-label="إغلاق القائمة">
+              <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
-            <Link href="/" className="text-gray-700 hover:text-black text-lg" onClick={() => setOpen(false)}>الرئيسية</Link>
-            <Link href="/services" className="text-gray-700 hover:text-black text-lg" onClick={() => setOpen(false)}>الخدمات</Link>
-            <Link href="/about" className="text-gray-700 hover:text-black text-lg" onClick={() => setOpen(false)}>من نحن</Link>
-            <Link href="/contact" className="text-gray-700 hover:text-black text-lg" onClick={() => setOpen(false)}>اتصل بنا</Link>
-            {/* زر تواصل في الموبايل */}
-            <button
-              className="flex items-center justify-center bg-black text-white w-10 h-10 rounded-full hover:bg-gray-800 transition-all focus:outline-none"
-              onClick={() => setShowSocial((v) => !v)}
-              aria-haspopup="true"
-              aria-expanded={showSocial}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
-            </button>
-            {showSocial && (
-              <div
-                ref={socialRef}
-                className="mt-2 bg-white border border-gray-200 rounded-xl shadow-lg py-2 px-3 flex flex-col gap-2 min-w-[180px] z-50 animate-fadeIn"
-                style={{ direction: 'rtl' }}
+            <div className="flex flex-col gap-4 mt-10">
+              <Link href="/" className="flex items-center gap-3 text-gray-700 hover:text-black text-lg transition-colors" onClick={() => setOpen(false)}>
+                <svg className="w-5 h-5 text-black/60" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                الرئيسية
+              </Link>
+              <Link href="/services" className="flex items-center gap-3 text-gray-700 hover:text-black text-lg transition-colors" onClick={() => setOpen(false)}>
+                <svg className="w-5 h-5 text-black/60" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" /><circle cx="8" cy="7" r="2" fill="currentColor" /><circle cx="16" cy="12" r="2" fill="currentColor" /><circle cx="8" cy="17" r="2" fill="currentColor" /></svg>
+                الخدمات
+              </Link>
+              <Link href="/about" className="flex items-center gap-3 text-gray-700 hover:text-black text-lg transition-colors" onClick={() => setOpen(false)}>
+                <svg className="w-5 h-5 text-black/60" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" /><path d="M12 16v-4m0-4h.01" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                من نحن
+              </Link>
+              <Link href="/contact" className="flex items-center gap-3 text-gray-700 hover:text-black text-lg transition-colors" onClick={() => setOpen(false)}>
+                <svg className="w-5 h-5 text-black/60" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 10.5V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2v-4.5" strokeLinecap="round" strokeLinejoin="round" /><path d="M17 8l-5 5-5-5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                اتصل بنا
+              </Link>
+            </div>
+            {/* زر تواصل في الأسفل */}
+            <div className="mt-auto flex flex-col gap-4">
+              <button
+                className="flex items-center justify-center bg-black text-white w-full h-12 rounded-xl hover:bg-gray-800 shadow-lg transition-all focus:outline-none gap-3 text-lg font-semibold"
+                onClick={() => setShowSocial((v) => !v)}
+                aria-haspopup="true"
+                aria-expanded={showSocial}
               >
-                {socials.map((s, i) => (
-                  <a
-                    key={i}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-2 py-1 rounded-lg hover:bg-gray-100 transition-colors"
-                    style={{ color: s.color }}
-                    onClick={() => setShowSocial(false)}
-                  >
-                    {s.icon}
-                    <span className="font-medium text-sm">{s.label}</span>
-                  </a>
-                ))}
-              </div>
-            )}
-            <Link href="/start" onClick={() => setOpen(false)}>
-              <button className="bg-black text-white w-full py-2 rounded-lg hover:bg-gray-800 transition-all mt-4">
-                ابدأ الآن
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
+                تواصل
               </button>
-            </Link>
+              {showSocial && (
+                <div
+                  ref={socialRef}
+                  className="mt-2 bg-white border border-gray-200 rounded-xl shadow-lg py-2 px-3 flex flex-col gap-2 min-w-[180px] z-50 animate-fadeIn"
+                  style={{ direction: 'rtl' }}
+                >
+                  {socials.map((s, i) => (
+                    <a
+                      key={i}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-2 py-1 rounded-lg hover:bg-gray-100 transition-colors"
+                      style={{ color: s.color }}
+                      onClick={() => setShowSocial(false)}
+                    >
+                      {s.icon}
+                      <span className="font-medium text-sm">{s.label}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+              <Link href="/start" onClick={() => setOpen(false)}>
+                <button className="bg-gradient-to-r from-black to-gray-800 text-white w-full py-3 rounded-xl hover:from-gray-900 hover:to-black transition-all mt-2 font-bold text-lg shadow-lg">
+                  ابدأ الآن
+                </button>
+              </Link>
+            </div>
           </div>
           {/* Click outside to close */}
           <div className="flex-1" onClick={() => setOpen(false)}></div>
