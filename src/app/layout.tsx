@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ClientScripts from "@/components/ClientScripts";
-import SocialBar from "@/components/SocialBar";
+
 
 export const metadata: Metadata = {
   title: {
@@ -149,10 +149,10 @@ export default function RootLayout({
         >
           انتقل إلى المحتوى الرئيسي
         </a>
-        <SocialBar />
         <Navbar />
+        
         <main id="main-content" className="flex-1">
-          {children}
+        {children}
         </main>
         <Footer />
         
